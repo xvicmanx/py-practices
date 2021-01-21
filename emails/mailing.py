@@ -26,7 +26,8 @@ class EmailSender:
     """    
     self.__user = user
     self.__password = password
-    self.__connection = smtplib.SMTP(PROVIDERS_ADDRESSES[provider], port = port)
+    self.__provider = provider
+    self.__port = port 
 
   def send_mail(self, email, message):
     """Sends an email a destination address
@@ -34,14 +35,15 @@ class EmailSender:
     Args:
         email (string): Destination email address
         message (string): Message content
-    """    
-    conn = self.__connection
-    conn.starttls()
-    conn.login(user = self.__user, password = self.__password)
-    conn.sendmail(
-      from_addr = self.__user,
-      to_addr = email,
-      msg = message,
-    )
-    conn.close()
+    """
+    provider_address = PROVIDERS_ADDRESSES[self.__provider]
+
+    with smtplib.SMTP(provider_address, port = self.__port) as conn:
+      conn.starttls()
+      conn.login(user = self.__user, password = self.__password)
+      conn.sendmail(
+        from_addr = self.__user,
+        to_addr = email,
+        msg = message,
+      )
 
