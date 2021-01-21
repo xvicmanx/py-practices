@@ -29,12 +29,13 @@ class EmailSender:
     self.__provider = provider
     self.__port = port 
 
-  def send_mail(self, email, message):
+  def send_mail(self, email, subject, body):
     """Sends an email a destination address
 
     Args:
         email (string): Destination email address
-        message (string): Message content
+        subject (string): Email subject
+        body (string): Email body
     """
     provider_address = PROVIDERS_ADDRESSES[self.__provider]
 
@@ -44,6 +45,6 @@ class EmailSender:
       conn.sendmail(
         from_addr = self.__user,
         to_addr = email,
-        msg = message,
+        msg = 'Subject:' + subject + '\n\n' + body,
       )
 

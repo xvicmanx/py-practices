@@ -5,4 +5,8 @@ sender = EmailSender(
   'pass',
 )
 
-sender.send_mail('john@foo.com', 'Hello')
+sender.send_mail(
+  'john@foo.com',
+  'Hello',
+  'Hello my friend'
+)
