@@ -44,7 +44,7 @@ class EmailSender:
       conn.login(user = self.__user, password = self.__password)
       conn.sendmail(
         from_addr = self.__user,
-        to_addr = email,
-        msg = 'Subject:' + subject + '\n\n' + body,
+        to_addrs = email,
+        msg = f'Subject:{subject}\n\n{body}',
       )
 
